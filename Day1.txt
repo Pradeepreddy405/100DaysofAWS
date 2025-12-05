@@ -58,7 +58,7 @@ How Key Pairs Are Used in AWS EC2
 		AWS places your public key inside the instance (usually in ~/.ssh/authorized_keys).
 
 	When you try to connect using SSH:
-		You provide your private key file (.pem or .ppk).
+		You provide your private key file (.pem or .ppk) [ssh -i name_of_key.pem ec2-user@<EC2-PUBLIC-IP>]
 		The server checks if it matches the public key stored inside.
 
 	If they match, you are authenticated automatically.
