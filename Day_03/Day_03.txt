@@ -1,0 +1,167 @@
+What Is a Subnet?
+
+	A subnet is a range of IP addresses within your VPC. You place AWS resources—like EC2 instances, RDS databases, or load balancers—into subnets.
+
+		(or)
+
+	In AWS, subnets are subdivisions of a VPC (Virtual Private Cloud) that let you organize and isolate resources within your cloud network.
+	
+Types of Subnets
+		1. Public Subnet
+			Has a route to the Internet Gateway (IGW).
+			Resources inside can be reached from the internet (if they have public IPs).
+			Typical use: web servers, bastion hosts, load balancers.
+
+		2. Private Subnet
+			No direct route to the internet.
+			Often routes outbound traffic via a NAT Gateway or NAT Instance.
+			Typical use: application servers, databases, internal services.
+
+		3. Isolated Subnet (sometimes called “local-only”)
+			No internet access at all (no IGW, no NAT).
+			High-security workloads.
+			
+Why Use Subnets?
+
+		Security isolation (use different route tables and security groups).
+		High availability (subnets span one Availability Zone—so you create multiple for redundancy).
+		Traffic control (public vs private routing).
+		Organizing workloads (e.g., separate subnets for web, app, DB layers).
+		
+		
+
+Subnets_Use_cases
+		
+1.Public Subnets – Hosting Internet-Facing Services
+
+		Used for:
+		Application Load Balancer (ALB)
+		API Gateway private integrations
+		NAT Gateways
+		Bastion hosts
+		Web servers (less common today—prefer private + ALB)
+		
+		Real scenario:
+		A Cloud Architect designs a system where the:
+		ALB sits in a public subnet.
+		ALB forwards traffic to EC2/ECS/EKS nodes in private subnets.
+		This ensures servers are not exposed directly to the internet.
+		
+		🟩 2. Private Subnets – Secure Backend Workloads
+		
+		Used for:		
+		EC2 app servers		
+		ECS tasks		
+		EKS nodes and pods		
+		Redis/ElastiCache		
+		RDS databases
+		Internal microservices
+		Internal load balancers
+		
+		DevOps perspective:
+		Deploy Kubernetes nodes in private subnets.
+		Pods communicate internally, and outbound access goes through NAT Gateway.
+		
+		Why?
+		Security
+		Isolation
+		Compliance
+		
+3. Database Subnets (Private + No Route to Internet)
+		
+		Used for:
+		RDS Multi-AZ DB subnet groups
+		Aurora clusters
+		Highly sensitive data stores
+		
+		Real scenario:
+		A Cloud Architect creates a DB Subnet Group with subnets in different AZs to ensure high availability.
+		
+		DB subnets NEVER have:
+		public IPs
+		routes to the internet
+		Only app servers in private subnets can reach the DB.
+		
+4. NAT Subnets – Enabling Outbound Internet for Private Resources
+		
+		Used for:
+		
+		Allow private EC2/ECS/EKS nodes to download packages
+		Patching and updates
+		External API calls
+		
+		Real example:
+		DevOps pipeline deploys app servers.
+		Servers are in private subnets.
+		They install dependencies via NAT Gateway in a public subnet.
+		
+5. Subnet Segmentation for Microservices
+		
+		Microservices architecture often uses multiple private subnet tiers:
+		Private subnet (App Tier A) → Service A
+		Private subnet (App Tier B) → Service B
+		Database subnet → DB tier
+		Traffic flows only between necessary tiers by SG rules.
+		
+		Used in:
+		
+		Banking apps
+		Fintech
+		E-commerce microservices
+		
+6. Subnet Design for High Availability and Fault Tolerance
+		
+		Cloud Architects ALWAYS design subnets across multiple AZs.
+		
+		Example layout:
+		
+		VPC
+		├── Public Subnets		:   us-east-1a, 1b
+		├── Private App Subnets	: us-east-1a, 1b
+		└── Private DB Subnets	: us-east-1a, 1b
+				
+		Note : This ensures the system stays up even if one AZ goes down.
+		
+7. DevOps CI/CD Pipeline Use Cases (Subnet Selection)
+		
+		DevOps engineers choose subnets for:
+		CodeBuild network config
+		EKS node groups
+		ECS Fargate tasks
+		Lambda functions in VPC
+		
+		Example:
+		
+		A Lambda function accessing RDS must run in:
+		private subnets
+		that have NAT Gateway (for external calls)
+		
+8. Subnet Use in Hybrid Cloud & VPN
+		
+		For on-prem connectivity:
+		Create special private subnets that route traffic to VPN/Direct Connect.
+		Used for internal corporate apps.
+		
+		Example:
+		A banking system with:
+		App servers in AWS private subnet
+		Mainframe in on-prem
+		Connected via Direct Connect
+		
+9. Subnet Use in Security/Compliance (PCI, HIPAA, SOC2)
+		
+		To pass audits, organizations must:
+		Segregate front-end, app, and DB workloads
+		Restrict traffic between subnets
+		Create “isolated” subnets without a NAT
+		
+		Used by:
+		Payment processors
+		Healthcare apps
+		Govt workloads
+		
+10. Subnet Use in EKS (Kubernetes)
+		Typical real setup:
+		Public subnets → for ALB ingress controllers
+		Private subnets → worker nodes
+		Isolated subnets → for internal services (no NAT)
