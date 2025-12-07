@@ -1,0 +1,67 @@
+Elastic block storage : 
+
+Amazon EBS allows you to create storage volumes and attach them to Amazon EC2 instances. 
+Once attached, you can create a file system on top of these volumes, run a database, or use them just like you would use block storage. 
+Amazon EBS volumes are placed in a specific Availability Zone, where they are automatically replicated to protect from the failure of a single component.
+
+
+
+
+
+Key Features
+	1.Persistent Storage
+		Your data stays safe regardless of EC2 instance state.
+
+	2.High Availability & Durability
+		Automatically replicated within an Availability Zone (AZ).
+
+	3.Snapshots
+		You can take EBS snapshots (backups) stored in S3.
+
+	4.Scalable
+		Increase volume size, performance, or type without downtime (in most cases).
+
+	5.Encrypted by Default
+		Supports KMS-based encryption to secure your data.
+
+Types of EBS Volumes
+
+	gp3	 (General Purpose SSD) 									---— Most common used
+	gp2	 (Older general-purpose SSD)
+	io2	 / io1 (Provisioned IOPS SSD)							---— High-performance workloads
+	st1	 (Throughput-optimized HDD) 							---— Big data, logs
+	sc1	 (Cold HDD) 											—--- Infrequent access, lowest cost
+
+Common Use Cases
+
+	-	Boot volume for EC2 instances
+	-	Databases (MySQL, PostgreSQL, MongoDB, etc.)
+	-	Application data storage
+	-	Log and analytics storage
+	-	Container storage for ECS/EKS
+
+
+Difference : (EBS , EFS and S3)
+	EBS → Fast disk for one server
+	EFS → Shared file system for many servers
+	S3 → Large, durable storage accessible from anywhere
+
+
+Task to perform : 
+
+
+Login to AWS Console 
+
+Step 1: Go to EC2 Dashboard → Elastic Block Store → Volumes
+		Click Create volume
+
+		Choose:Volume type: gp3
+
+Step 2: Size: 2 GiB
+		Scroll to Tags, click Add Tag
+		
+		Enter:
+		Key: Name
+		Value: Enter the specified value
+
+Step 3: Click Create Volume  and verify the volume status
