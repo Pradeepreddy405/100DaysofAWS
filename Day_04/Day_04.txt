@@ -1,0 +1,19 @@
+Elastic ip's
+
+	In AWS, Elastic IP (EIP) is a static, public IPv4 address that you can allocate and attach to an Amazon EC2 instance or other AWS resources like.
+		1. EC2 Instance
+		2. Elastic Network Interface (ENI)
+		3. NAT Gateway
+		4. Network Load Balancer (NLB
+		
+		
+	Key components
+		Static address				: Unlike a regular public IP, an EIP does not change when you stop or start your instance.
+		Re-mappable					: You can quickly reassign an EIP from one instance to another—useful during failures or maintenance.
+		Public (internet-reachable)	: It allows inbound/outbound traffic from the internet.
+		
+	Why Use an Elastic IP?
+	
+		To keep a persistent public IP for applications or servers.
+		To enable high availability by remapping the IP to a standby instance.
+		To avoid DNS changes when instances are replaced.
