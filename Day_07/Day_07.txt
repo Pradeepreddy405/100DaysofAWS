@@ -1,0 +1,76 @@
+1. 	Ensure EC2 Status Checks are complete
+	Before making any changes, confirm:
+	Instance state: running
+	Status checks: 2/2 checks passed
+
+	How to check:
+	
+	Go to AWS Console > EC2 > Instances
+	Select specified instance that you wanted to change
+
+	Look at the Status Checks column
+	If it's “Initializing”, wait until it becomes 2/2 checks passed
+
+2. 	Stop the EC2 instance
+	You must stop an EC2 instance before changing the instance type.
+	
+	Steps:
+	Select specified or required instance
+
+	Click Instance State → Stop instance
+	Confirm and wait until state becomes stopped
+
+3. 	Change the instance type
+	Now modify the instance type, With the instance selected:
+
+	Click Actions 	-> Instance settings -> Change instance type
+	Choose t2.nano 	-> save the changes
+
+4. 	Start the instance
+	Start it again:
+	Instance State → Start instance
+
+	Wait until:
+	State = running
+	Status Checks = 2/2 checks passed
+	
+	
+	
+Why stopping is required:
+
+	- To detach the instance from its current hardware
+	- To move/allocate it to a new physical host with different capabilities
+	- To avoid data corruption and instability
+	
+Changing an instance type is a very common operational task in DevOps and cloud while performing below things
+	
+1. 	Resource Optimization (Right-sizing)
+	Companies constantly adjust instances to reduce cost.
+
+Example:
+	-> If CPU utilization is only 10% → downgrade instance (cheaper)
+	-> If instance is throttling → upgrade instance (more power)
+
+This is exactly what happened in your scenario:
+Instance underutilized → downgrade to t2.nano
+
+
+ 	Cost Reduction & Cloud Efficiency
+	AWS bills per instance type.
+	Changing instance size is one of the easiest cost-saving activities.
+	Downsize non-critical workloads
+	Upsize production systems during peak load
+
+2. Auto Scaling & Performance Management
+
+	Sometimes DevOps adjusts instance types due to:
+	Traffic changes
+	Scaling strategies
+	Application updates needing more resources
+
+3. Migration Between Regions / Upgrading
+	During migrations, teams often:
+	Move workloads
+	Change instance families (T to M to C, etc.)
+	Improve performance or reduce costs
+	Stopping the instance is part of that workflow.
