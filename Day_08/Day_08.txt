@@ -1,0 +1,29 @@
+How to Enable / Disable EC2 Stop Protection (Console)
+
+Step 1: Login to AWS console 
+Step 2: Open EC2 Dashboard
+Step 3: Select your instance - Click on Actions
+Step 4: Choose Instance Settings
+Step 5:	Select Change Stop Protection
+		Set:
+			Enable = To protect
+			Disable = To allow stopping
+
+
+
+What is EC2 Stop Protection?
+
+	EC2 Stop Protection prevents your EC2 instance from being accidentally stopped.
+	If stop protection is enabled:
+		
+			You cannot stop the instance from AWS Console or CLI
+			You will get an error: “The instance is not allowed to stop”
+	Caution:		
+		Stop protection DOES NOT prevent termination.
+		For preventing accidental termination, you must enable termination protection separately.
+	
+To avoid situations like:
+
+	- Someone accidentally stops a production server
+	- Auto-scaling scripts or CI/CD pipelines mistakenly stop the instance
+	- DevOps misclicks "Stop" instead of "Reboot"	
