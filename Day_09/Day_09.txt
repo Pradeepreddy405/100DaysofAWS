@@ -1,0 +1,38 @@
+Topic : Enable Termination Protection
+
+
+Using AWS Management Console (Recommended for beginners)
+
+Login to AWS Console with valid credentials
+
+Go to EC2 Dashboard
+	Make sure about the region that you wanted to Enable Termination Protection
+	Select the Instance
+		Click Instances
+		Select the instance named "Instance_name"
+		Enable Termination Protection
+	Navigate to
+		Instance settings → Change termination protection
+
+	Check Enable
+		Click Save
+		Termination protection is now enabled.
+		
+		
+		
+" Termination protection " is an EC2 safety feature that prevents accidental deletion of critical instances. It can be enabled via console or CLI
+
+Explanation :
+		In real-time DevOps, termination protection is used as a safety guard for production EC2 instances. It prevents accidental deletion via console, CLI, Terraform, or CI/CD pipelines. 
+		It is typically enforced on critical infra like Jenkins masters, databases, and legacy apps, and combined with IAM or SCP for governance.”
+
+Real-Time Scenario: Production Safety
+
+	- Production EC2 (database, Jenkins master, legacy app)
+	- Multiple engineers + CI/CD pipelines
+	- Automation using Terraform / Jenkins / Ansible
+	
+This blocks:
+	- Manual deletion
+	- CI/CD pipeline deletion
+	- Terraform destroy
