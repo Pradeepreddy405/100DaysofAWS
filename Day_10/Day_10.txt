@@ -1,0 +1,46 @@
+What is an Elastic IP?
+
+	An Elastic IP is a static, public IPv4 address provided by AWS that does not change, even if:
+	-	EC2 is stopped/started
+	-	Instance is replaced
+	-	App is redeployed
+
+	Why elastic ips remains constant : Elastic IPs remain constant by design, because AWS treats them very differently from normal public IPs.Elastic IPs are allocated to your AWS account, not to the EC2 instance or underlying hardware.
+		Detached
+		Re-attached
+		Moved to another instance
+
+	Caution:
+		-	Normal public IPs change on a stop–start cycle releases the public IP because the underlying host may change.
+		-	It doesn't change on reboot -  Reboot does not change public IP because the ENI remains intact.”
+
+Where Elastic IPs used ?
+
+	Real-world scenarios:
+	
+		Production servers
+		Jenkins master
+		Bastion host
+		VPN server
+
+
+Task : Attach Elastic IP (AWS Console)
+
+
+Login with aws console login with credentials 
+
+Step 1: Allocate Elastic IP
+	Go to EC2 → Elastic IPs
+	Click Allocate Elastic IP address
+	Choose Amazon IPv4
+	Click Allocate
+	EIP is created (not attached yet)
+
+Step 2: Associate Elastic IP with EC2
+	Select the Elastic IP
+	Click Actions → Associate Elastic IP
+	Resource type: Instance
+	Select your EC2 instance
+	Select Private IP
+	Click Associate
+	Your EC2 now has a static public IP.
