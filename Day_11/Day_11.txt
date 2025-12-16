@@ -1,0 +1,45 @@
+What is an ENI?
+
+	ENI is a virtual network interface in AWS that provides networking capabilities like IP addresses, security groups, and can be attached or detached from EC2 instances.
+
+		(or)
+	
+	An Elastic Network Interface (ENI) is a virtual network card in AWS that you can:
+		- Attach / detach from EC2 instances
+		- Move between instances
+		- Assign multiple private IPs
+		- Associate Elastic IPs
+		- Apply security groups independently
+		
+		
+		
+	Why DevOps teams use ENI (Real-time use cases)
+
+		Real-world DevOps use case :
+		
+			- Blue-Green deployments
+			- Disaster recovery
+			- Network appliances (firewalls, NAT, proxies)
+			- Microservices with fixed IP needs
+			
+
+Step 1: Go to EC2
+		AWS Console → EC2 -> Left menu → Network Interfaces
+
+Step 2: Select ENI
+		Select your ENI (e.g., mentioned-eni)
+		Status should be Available
+		Click Actions → Attach
+
+Step 3: Attach to EC2
+		Choose Instance: mentioned-ec2
+		Choose Device index:
+				1 → secondary ENI (eth1)
+
+Click Attach -> ENI attached successfully
+
+Step 4: Verify
+		EC2 → Instances → Networking tab
+		You should see:
+		eth0 → Primary ENI
+		eth1 → Secondary ENI
