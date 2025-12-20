@@ -1,0 +1,28 @@
+Task 1: Delete EC2 Instance (Mentioned or required instance to terminate)
+
+Step-by-Step Instructions:
+
+			Log in to AWS Console > Use your credentials and go to AWS Management Console
+		
+			Set the Region
+				Top right corner → select mentioned region
+		
+			Navigate to EC2
+				Search for EC2 in the search bar and open it.
+				
+			Locate the Instance
+				On the left panel → click Instances.
+				
+			Search for the instance  (mentioned-ec2) by name or instance ID.
+		
+			Terminate the Instance
+				Select the instance → Actions → Instance State → Terminate instance.
+				
+			Confirm the termination.
+		
+			Verify Termination
+				Wait a few minutes for the instance to move to terminated state.
+				Status column should show: terminated.
+				Only after the instance is terminated you will get confirmed that instance terminated 
+		
+Note: Once an instance is terminated, its data cannot be recovered unless snapshots or AMIs exist.
