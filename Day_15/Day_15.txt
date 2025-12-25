@@ -1,0 +1,166 @@
+Create EBS Snapshot via AWS Console 
+
+Step 1: Login & Select Region
+		Log in to AWS Management Console
+		From the top-right corner, select Region: <region_>
+
+Step 2: Open EC2 Volumes
+		Go to Services → EC2
+		In the left sidebar, scroll down to Elastic Block Store
+		Click Volumes
+
+Step 3: Select the Volume
+		In the volumes list, find the volume with Name = nautilus-vol
+		(Check the Tags → Name column)
+		Select the volume (checkbox)
+		
+Step 4: Create Snapshot
+		Click Actions
+		Choose Create snapshot
+
+Step 5: Fill Snapshot Details
+		In the Create snapshot screen:
+Description:
+		<Snap_shot_name> Snapshot
+
+		Tags:
+		Key: Name
+		Value: <Snap_shot_name>
+		Click Create snapshot
+
+Step 6: Monitor Snapshot Status
+		In the left sidebar, click Snapshots
+		Locate the snapshot with Name = required snapshot that you wanted to mention
+		Wait until Status changes from pending → completed
+
+
+Step 7: Final Verification
+
+		Confirm:
+		Snapshot Name: required snapshot that you wanted to mention
+		Description: nautilus Snapshot
+		State: completed
+		Region: us-east-1
+		
+		
+What is a Snapshot in AWS?
+	In AWS, a snapshot is a point-in-time backup of data stored on an Amazon EBS (Elastic Block Store) volume.
+	
+	Restore the same data
+	Create a new volume
+	Copy data to another region
+	Recover from failures
+	
+	
+	
+
+
+Incremental means:
+
+	First snapshot → full backup
+	Next snapshots → only changed blocks
+
+Why Do We Use Snapshots?
+		1: Backup & Data Protection
+					If something goes wrong:
+					Accidental deletion
+					Disk corruption
+					App crash
+					Ransomware
+					Snapshot allows fast recovery
+
+		2️: Disaster Recovery (DR)
+					Restore volumes after EC2 failure
+					Recover from AZ or Region issues
+
+					Example:
+					EC2 crashed → Create new EC2 → Attach volume from snapshot
+
+3️: Easy Volume Restoration
+
+You can:
+
+Create a new EBS volume from a snapshot
+Attach it to any EC2
+No need to reinstall OS or app data again.
+
+4️: Cross-Region & Cross-Account Copy
+Copy snapshots to another AWS region
+Share snapshots across AWS accounts
+
+
+
+DevOps Use Cases - Very Important
+
+1: Automated Backups (Most Common)
+		DevOps teams automate snapshots using:
+		AWS Data Lifecycle Manager
+		Lambda + CloudWatch
+		Terraform
+
+Example:
+		Daily snapshot at 2 AM
+		Retain for 7 days
+		Delete old ones automatically
+
+2️ CI/CD Environment Cloning
+
+	In DevOps pipelines:
+		Take snapshot of QA DB
+		Create new volume
+		Attach to Staging
+
+		Fast environment replication
+		Consistent data
+
+3️ Rollback Strategy
+	Before deployment:
+		Take snapshot -> Deploy new version -> If failure  restore snapshot
+		Very common in:
+			Database servers
+			Legacy apps
+			Stateful workloads
+
+4️ Blue-Green & Canary Deployments
+	Snapshots help in:
+		Rolling back data changes
+		Safe production deployments
+
+		Example:
+		Prod DB snapshot → Deploy → If error → Restore
+
+5️ Security & Compliance
+	Retain snapshots for audits
+	Encrypted snapshots
+	Meet compliance (ISO, SOC, HIPAA)
+
+6️ Infrastructure as Code (IaC)
+
+	Used with:
+		Terraform
+		CloudFormation
+
+		Example:
+		
+		resource "aws_ebs_snapshot" "backup" {
+		volume_id = "vol-xxxx"	
+		}
+
+7️: Migration Use Case
+		Snapshot → copy to another region
+		Create volume → attach to new EC2
+
+	Used during:
+		Data center migration
+		Region migration
+
+	Real-World Example (DevOps)
+	E-commerce App
+		MySQL running on EC2 + EBS
+		Daily snapshots at midnight
+		Weekly copy to another region
+		Restore used during failed deployments
+
+
+summary :
+		AWS Snapshot is an incremental, point-in-time backup of EBS volumes used for backup, recovery, automation, and disaster recovery in DevOps workflows.
