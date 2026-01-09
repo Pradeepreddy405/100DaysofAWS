@@ -4,13 +4,30 @@ Load balancer :
 	
 	
 	
-	Why do we need a Load Balancer?
+	Why do we need a Load Balancer ?
+	
 		Without a load balancer:
-		One server can get overloaded 
-		If that server fails → application goes down 
+			- One server can get overloaded 
+			- If that server fails → application goes down 
 
-	With a load balancer:
-
-		Traffic is spread across many servers 
-		Automatic failover if one server goes unhealthy 	
-		Easy scaling (add/remove servers) 	
+		With a load balancer:
+			- Traffic is spread across many servers 
+			- Automatic failover if one server goes unhealthy 	
+			- Easy scaling (add/remove servers)
+		
+		Ensures :
+			1)High availability
+			2)Zero downtime deployments
+			3)Auto scaling
+			
+	working principle :
+		
+		- Users → Load Balancer → EC2 instances / Containers / IPs
+		- Receives user requests-> Load balancer -> Checks which servers are healthy -> Sends traffic only to healthy servers
+		
+		
+	Types
+		1)	Application load balancer
+		2)	Network load balancer
+		3)	Classical load balancer
+		4)	Gateway load balancer
