@@ -1,0 +1,16 @@
+Load balancer :
+	
+	-  A load balancer in AWS is a service that automatically distributes incoming traffic across multiple servers (targets) so your application stays fast, scalable, and highly available.
+	
+	
+	
+	Why do we need a Load Balancer?
+		Without a load balancer:
+		One server can get overloaded 
+		If that server fails → application goes down 
+
+	With a load balancer:
+
+		Traffic is spread across many servers 
+		Automatic failover if one server goes unhealthy 	
+		Easy scaling (add/remove servers) 	
