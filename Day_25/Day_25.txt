@@ -1,0 +1,55 @@
+
+
+What is AWS CloudWatch :
+	Amazon CloudWatch is a monitoring and observability service provided by AWS. 
+	
+	- Monitor AWS resources (like EC2, RDS, Lambda) and applications.
+	- Collect and track metrics in real-time.
+	- Set alarms to react automatically to changes.
+	- Log and visualize data for troubleshooting and optimization.
+	
+
+
+
+KODEKLOUD_TASK : Setting Up an EC2 Instance and CloudWatch Alarm
+
+	Step 1: Open EC2 Console and launch new instance
+			Login to AWS Management Console
+			Instance_Name:nautilus-ec2 -> Click Launch instance
+	
+	
+	Step 2:	Create CloudWatch Alarm (nautilus-alarm)
+			Step 1: Open CloudWatch -> Go to Services → CloudWatch -> Click Alarms → Create alarm
+			
+			Step 2: Select Metric -> Click Select metric -> Choose EC2 -> Select Per-Instance Metrics -> Select CPUUtilization for nautilus-ec2
+			Click Select metric
+			
+			Step 3: Configure Alarm Conditions
+			
+			Statistic
+			=========
+			Select			: Average
+			Period
+			Set				: 5 minutes
+			Condition		:
+				Threshold type: Static
+				Whenever CPUUtilization ≥ 90
+			
+			Evaluation Periods
+			
+			1 out of 1
+			
+			Step 4: Configure Actions
+			Alarm state trigger
+			In Alarm state
+			Select Send notification to existing SNS topic
+			Choose: nautilus-sns-topic
+			
+			Step 5: Name the Alarm
+			Alarm Name -> Enter: nautilus-alarm
+			
+			Click Create alarm -> Verify Alarm -> Go to CloudWatch → Alarms
+				- Confirm nautilus-alarm status shows OK 
+					(or)
+				- Insufficient data
+	
