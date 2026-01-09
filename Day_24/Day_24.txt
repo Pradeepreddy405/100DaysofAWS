@@ -31,3 +31,107 @@ Load balancer :
 		2)	Network load balancer
 		3)	Classical load balancer
 		4)	Gateway load balancer
+		
+		
+		
+		
+	KODE_KLOUD_TASK : DAY_24 :Setting Up an Application Load Balancer for an EC2 Instance		
+		
+STEP 1: Create Security Group (nautilus-sg)
+		Go to EC2 → Security Groups -> Click Create security group
+		
+		Basic details
+			Security group name	: nautilus-sg
+			Description			: Allow HTTP traffic to ALB
+			VPC					: Same VPC as EC2
+				Inbound rules
+				=============
+				Type	Protocol	Port		Source
+				HTTP	TCP	80		0.0.0.0/0
+			
+				Outbound rules
+				==============
+				Allow all (default)
+				Click Create security group
+
+STEP 2: Create Target Group (nautilus-tg)
+		Go to EC2 → Target Groups   -> Click Create target group
+		Target group settings
+				Target type			: Instances
+				Target group name	: nautilus-tg
+				Protocol			: HTTP
+				Port				: 80
+				VPC					: Same as EC2
+				Health checks
+				Path: / (default)   -> Click Next
+		
+			Register EC2
+			Select nautilus-ec2
+			Port: 80
+			Click Include as pending
+			Click Create target group
+
+STEP 3: Create Application Load Balancer (nautilus-alb)
+			Go to EC2 → Load Balancers -> Click Create Load Balancer -> Choose Application Load Balancer
+			
+		Basic configuration
+		===================
+		Name			: nautilus-alb
+		Scheme			: Internet-facing
+		IP address type	: IPv4
+		
+		Network mapping
+		==================
+		VPC				: Same VPC
+		Subnets			: Select at least 2 public subnets
+		
+		Security groups
+		==================
+		Remove default SG ---------------------------> Important 
+		Select nautilus-sg
+
+		Listeners
+		Protocol		: HTTP
+		Port			: 80
+		Default action	: Forward to nautilus-tg
+		
+	Click Create load balancer
+
+STEP 4: Verify Listener Rule
+		Open nautilus-alb
+		
+		Go to Listeners → HTTP:80
+		
+		Confirm:
+		IF path is /
+		THEN forward to nautilus-tg
+	
+		(No changes needed if already present)
+
+STEP 5: Update EC2 Security Group (VERY IMPORTANT)
+		Go to EC2 → Instances -> Select nautilus-ec2 -> Click Security → Security Groups -> Open the EC2 security group
+		
+		Edit Inbound rules
+			Add rule
+			========
+			Type	Port	Source
+			HTTP	80	nautilus-sg
+			Remove 0.0.0.0/0 if present
+		Save rules
+
+STEP 6: Test in Browser
+		Go to EC2 → Load Balancers -> Copy DNS name of nautilus-alb
+		
+		Open in browser:
+		http://<alb-dns-name>
+		You should see the Nginx welcome page
+
+
+
+Summary :
+	ALB name 		→ nautilus-alb
+	Target group 	→ nautilus-tg
+	Security group 	→ nautilus-sg
+	ALB 			→ Internet-facing
+	Listener 		→ HTTP : 80
+	EC2 allows traffic only from ALB SG
